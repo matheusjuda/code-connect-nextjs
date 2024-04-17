@@ -1,27 +1,22 @@
 import { CardPost } from "@/Componentes/CardPost";
 
-const post =
-{
-  "id": 1,
-  "cover": "https://raw.githubusercontent.com/viniciosneves/code-connect-assets/main/posts/introducao-ao-react.png",
-  "title": "Introdução ao React",
-  "slug": "introducao-ao-react",
-  "body": "Neste post, vamos explorar os conceitos básicos do React, uma biblioteca JavaScript para construir interfaces de usuário. Vamos cobrir componentes, JSX e estados.",
-  "markdown": "```javascript\nfunction HelloComponent() {\n  return <h1>Hello, world!</h1>;\n}\n```",
-  "author": {
-    "id": 101,
-    "name": "Ana Beatriz",
-    "username": "anabeatriz_dev",
-    "avatar": "https://raw.githubusercontent.com/viniciosneves/code-connect-assets/main/authors/anabeatriz_dev.png"
+//API json-serve / Função pausada ate await retornar
+async function getAllPosts() {
+  const response = await fetch('http://localhost:3042/posts')
+  if (!response.ok) {
+    console.log('ERROOOOOO API')
   }
+  return response.json()
 }
 
 
 
-export default function Home() {
+export default async function Home() {
+  const post = await getAllPosts()
   return (
     <main>
-      <CardPost post={post} />
+      {post.map(post => <CardPost post={post} />)}
+
     </main>
   );
 }
