@@ -1,3 +1,8 @@
+/* declaração de independência para os elementos, dizendo: "Quando eu definir um tamanho, isso inclui tudo – borda e padding!" */
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: linear-gradient(180deg, #0E1112 0%, #00090E 100%);
   margin: 0;
