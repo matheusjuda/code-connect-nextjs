@@ -1,5 +1,6 @@
 import { CardPost } from "@/Componentes/CardPost";
 import logger from "@/logger";
+import styles from './page.module.css'
 
 //API json-serve / Função pausada ate await retornar
 async function getAllPosts() {
@@ -12,12 +13,10 @@ async function getAllPosts() {
   return response.json()
 }
 
-
-
 export default async function Home() {
   const post = await getAllPosts()
   return (
-    <main>
+    <main className={styles.grid}>
       {post.map(post => <CardPost post={post} />)}
 
     </main>

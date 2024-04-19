@@ -21,9 +21,13 @@ export default function RootLayout({ children }) {
     <html lang="pt-br" className={prompt.className}>
       <body>
         <div className='app-container'>
-          <Aside />
-          {children}
-        </div>
+          <div>
+            <Aside />
+          </div>
+          <div className='main-content'>
+            {children}
+          </div>
+        </div >
 
       </body>
     </html>
