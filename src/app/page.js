@@ -1,6 +1,7 @@
 import { CardPost } from "@/Componentes/CardPost";
 import logger from "@/logger";
 import styles from './page.module.css'
+import Link from "next/link";
 
 //API json-serve / Função pausada ate await retornar
 async function getAllPosts(page) {
@@ -14,13 +15,17 @@ async function getAllPosts(page) {
   return response.json()
 }
 
-export default async function Home() {
+export default async function Home({ searchParams }) {
+  //Acessando rota de paginas por pesquisa de URL utilizando searchParams
+  const currentPage = searchParams?.page || 1 //Se não estiver pag retorne pag 1
+
   //Na api de page os posts estão dentro do objeto data
-  const { data: post } = await getAllPosts(1)
+  const { data: post, prev, next } = await getAllPosts(currentPage)
   return (
     <main className={styles.grid}>
       {post.map(post => <CardPost key={post.id} post={post} />)}
-
+      {prev && <Link href={`/?page=${prev}`}>Página anterior</Link>} {/*Link utilizado apenas para rotas internas*/}
+      {next && <Link href={`/?page=${next}`}>Próxima pagina</Link>}
     </main>
   );
 }
