@@ -1,6 +1,8 @@
+import { CardPost } from "@/Componentes/CardPost";
 import logger from "@/logger"
 import { remark } from 'remark';
 import html from 'remark-html';
+import styles from './page.module.css'
 
 
 async function getPostBySlug(slug) {
@@ -30,10 +32,13 @@ async function getPostBySlug(slug) {
 
 const PagePost = async ({ params }) => { //Pegando um parametro do Next rotas (slug)
 	const post = await getPostBySlug(params.slug)
-	return (<>
-		<h1 style={{ color: 'white' }}>{post.title}</h1>
-		{<div style={{ padding: 16, background: 'white' }} dangerouslySetInnerHTML={{ __html: post.markdown }} /> /*Redenrizando markdown em html*/}
-	</>)
+	return (<div>
+		<CardPost post={post} highlight />
+		<h3 className={styles.subtitle}>{post.title}</h3>
+		<div className={styles.code}>
+			{<div dangerouslySetInnerHTML={{ __html: post.markdown }} /> /*Redenrizando markdown em html*/}
+		</div>
+	</div>)
 }
 
 export default PagePost
